@@ -129,9 +129,9 @@ monocar.cal <- function(init.param, data, exodata, pc.list,
         house.series <- data$which.series
     
     if (!("which.process" %in% names(data)))
-        process.series <- rep(1, data$which.series)
+        process.series <- rep(1, length(data$which.series))
     else if (is.null(data$which.process))
-        process.series <- rep(1, data$which.series)
+        process.series <- rep(1, length(data$which.series))
     else
         process.series <- data$which.process
     
@@ -275,7 +275,10 @@ monocar.cal <- function(init.param, data, exodata, pc.list,
             if (optimizerName == "DIRECT" ||
                 optimizerName == "DIRECTL" ||
                 optimizerName == "DIRECT_L")
-                optimizerFullName <- "NLOPT_GN_DIRECT_L"
+                {
+                    optimizerFullName <- "NLOPT_GN_DIRECT_L"
+                    hasOptimizer <- TRUE
+                }
             if (optimizerName == "CRS" || optimizerName == "CRS2")
                 {
                     optimizerFullName <- "NLOPT_GN_CRS2_LM"
@@ -303,7 +306,7 @@ monocar.cal <- function(init.param, data, exodata, pc.list,
                 }
             if (optimizerName == "ESCH")
                 {
-                    optimizerFullName <- "NoptimizerNameLOPT_GN_ESCH"
+                    optimizerFullName <- "NLOPT_GN_ESCH"
                     hasOptimizer <- TRUE
                 }
             if (optimizerName == "COBYLA")
@@ -384,7 +387,7 @@ monocar.cal <- function(init.param, data, exodata, pc.list,
                 else
                     opts <- append(list("algorithm"=optimizerFullName),
                                    attr(optimizerName, "opts"))
-                if (!("print_level") %in% opts)
+                if (!("print_level" %in% names(opts)))
                     opts[["print_level"]] <- 0
                 if (i <= length(tolerances))
                     opts$xtol_rel = tolerances[i]
@@ -506,7 +509,7 @@ simulate.monocar <- function(object, nsim = 1, seed = NULL,
     }
     else if (nsim>1) {
         output.list <- list()
-        for (i in 1:nsim) {
+        for (i in seq_len(nsim)) {
             output.list[[i]] <-
                 simulate.monocar(object, nsim = 1, seed = NULL,
                                  var=var, t1=t1, t2=t2, data=data,
@@ -514,9 +517,9 @@ simulate.monocar <- function(object, nsim = 1, seed = NULL,
                                  transform = transform, transform.var = transform.var,
                                  exo.data=exo.data, exovars=exovars, byexo=byexo,
                                  var.centers=var.centers)
-            attr(output.list, "seed") <- RNGstate
-            return(output.list)
         }
+        attr(output.list, "seed") <- RNGstate
+        return(output.list)
     }
     else if (nsim==0) {
         return(NULL)
@@ -1805,13 +1808,13 @@ monocar.estimate <- function(data, init=list(), restrict=list(),
     }
     else {
         tol.solve = max(.Machine$double.eps^4, sqrt(sqrt(.Machine$double.xmin)))
+        hess.orig <- model.est$hess
         if (any(!is.finite(model.est$hess))) {
             warning("Hessian contains missing values; can't compute standard errors")
             vcov.orig <- NA
             standard.errors <- NA
             p.values <- NA
-        }
-        if (any(abs(diag(model.est$hess)) < tol.solve)) {
+        } else if (any(abs(diag(model.est$hess)) < tol.solve)) {
             pseudo.solve <- function(hess) {
                 nm <- abs(diag(hess)) >= tol.solve
                 vcov.orig <- diag(Inf, nrow(hess), ncol(hess))
@@ -1824,12 +1827,14 @@ monocar.estimate <- function(data, init=list(), restrict=list(),
         } else {
             vcov.orig <- try(solve(model.est$hess, tol=tol.solve), silent=TRUE)
         }
-        hess.orig <- model.est$hess
         if (inherits(vcov.orig, "try-error")) {
             warning(paste0(as.character(attr(vcov.orig, "condition")), "No standard errors computed"))
             vcov.orig <- NA
             standard.errors <- NA
             p.values <- NA
+        }
+        else if (identical(vcov.orig, NA)) {
+            ## Hessian-was-NA branch already set standard.errors/p.values to NA above.
         }
         else {
             vcov <- cbind(rbind(vcov.orig,0),0)
