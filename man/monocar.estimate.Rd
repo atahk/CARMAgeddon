@@ -165,7 +165,7 @@ monocar.estimate(data, init=list(), restrict=list(),
   for all \eqn{k}, where \eqn{k} indexes the latent process. The
   observation equations also likewise adjusted by replacing \eqn{x_t} by
   \eqn{x_{k_i,t}}, where \eqn{k_i} is the latent process observed by
-  observation eqn{i}.
+  observation \eqn{i}.
 
   For a structural MONOCAR model, the latent process becomes
   \deqn{A x_t = \Theta\left(\mu - x_t\right)dt + \Sigma^{\frac{1}{2}}

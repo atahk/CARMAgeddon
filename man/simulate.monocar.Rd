@@ -39,7 +39,7 @@
     identifying the process for each observation. The default is to
     assume all observations belong to the same process.}
   \item{transform}{An optional function specifying a transformation to
-    apply to each observation. See \code{\link{monocar.data}} for more
+    apply to each observation. See \code{\link{create.ctdata}} for more
     details.}
   \item{transform.var}{An optional function specifying a transformation
     to apply to the variance of each observation. See

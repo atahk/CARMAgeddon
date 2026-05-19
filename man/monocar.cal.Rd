@@ -7,11 +7,12 @@
 }
 \usage{
 monocar.cal(init.param, data, exodata, pc.list, verbose=1,
-  optimizers = c("MMA"), maxiters = NULL, tolerances = NULL,
+  optimizers = c("MMA", "BFGS"), maxiters = NULL, tolerances = NULL,
   epsilon = 0, lower.bounds = NULL, upper.bounds = NULL,
-  var.centers = NULL, time.indices = NULL,
-  compute.hessian = TRUE, compute.partial.scores = TRUE,
-  compute.history = FALSE, use.parallel = NULL)
+  var.centers = NULL, priors = NULL, newton.raphson = 0,
+  time.indices = NULL, compute.hessian = TRUE,
+  compute.partial.scores = TRUE, compute.history = FALSE,
+  use.parallel = NULL)
 }
 \arguments{
   \item{init.param}{A vector giving the initial parameter guesses.}
@@ -45,6 +46,11 @@ monocar.cal(init.param, data, exodata, pc.list, verbose=1,
     the variances. See \code{\link{monocar.estimate}} for more
     details. This is the \eqn{\bar{v}} that appears in the
     observation equations.}
+  \item{priors}{An optional matrix specifying prior distributions on
+    beta for Bayesian maximum a posteriori estimation.}
+  \item{newton.raphson}{Number of Newton-Raphson interations using the
+    analytic Hessian as an alterative to or in additon to optimizers
+    from nloptr. Performed after other optimizers. The default is zero.}
   \item{time.indices}{An optional vector specifying time indices.}
   \item{compute.hessian}{Whether to compute the Hessian. This is needed
     to compute the variance-covariance matrix and standard errors for

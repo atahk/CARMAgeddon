@@ -7,7 +7,8 @@
   model
 }
 \usage{
-monocar.hist(data, model, estimates=NULL, exovars=NULL, byexo="series",
+monocar.hist(data, model, history.times = NULL, estimates=NULL,
+  exovars=NULL, byexo="series",
   delta.group=TRUE, verbose=1, mu.by.process=FALSE,
   delta.by.process=FALSE, var.by.house=FALSE, \dots)
 }
@@ -18,6 +19,11 @@ monocar.hist(data, model, estimates=NULL, exovars=NULL, byexo="series",
     \code{\link{monocar.estimate}}. Can be \code{NULL}, in which case
     the specification is taken from \code{estimates} and
     \code{exovars}.}
+  \item{history.times}{The points in time at which to estimate values
+    of the latent process. If a single integer, it is treated as the
+    length of a vector of evenly spaced observations from the minimum
+    to maximum observation times in the data. The default is the
+    sequence of all unique start and stop times for observations.}
   \item{estimates}{If \code{model} is \code{NULL}, a list of
     parameters.}
   \item{exovars}{If \code{model} is \code{NULL}, an optional formula
