@@ -3,21 +3,23 @@
 #include <R_ext/Rdynload.h>
 
 /* .Call entry points */
-extern SEXP monocarptr__new(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
+extern "C" {
+SEXP monocarptr__new(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
                             SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
                             SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP monocarptr__print(SEXP, SEXP);
-extern SEXP monocarptr__fun(SEXP, SEXP);
-extern SEXP monocarptr__grad(SEXP, SEXP);
-extern SEXP monocarptr__parallelgrad(SEXP, SEXP);
-extern SEXP monocarptr__partial(SEXP, SEXP);
-extern SEXP monocarptr__hess(SEXP, SEXP);
-extern SEXP monocarptr__hist(SEXP, SEXP);
-extern SEXP monocarptr__histrand(SEXP, SEXP, SEXP);
-extern SEXP monocarptr__endopt(SEXP);
-extern SEXP ousim(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
+SEXP monocarptr__print(SEXP, SEXP);
+SEXP monocarptr__fun(SEXP, SEXP);
+SEXP monocarptr__grad(SEXP, SEXP);
+SEXP monocarptr__parallelgrad(SEXP, SEXP);
+SEXP monocarptr__partial(SEXP, SEXP);
+SEXP monocarptr__hess(SEXP, SEXP);
+SEXP monocarptr__hist(SEXP, SEXP);
+SEXP monocarptr__histrand(SEXP, SEXP, SEXP);
+SEXP monocarptr__endopt(SEXP);
+SEXP ousim(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
                   SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
                   SEXP, SEXP);
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"monocarptr__new",          (DL_FUNC) &monocarptr__new,          28},
@@ -34,7 +36,7 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
-void R_init_CARMAgeddon(DllInfo *dll)
+extern "C" void R_init_CARMAgeddon(DllInfo *dll)
 {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);

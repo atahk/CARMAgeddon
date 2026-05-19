@@ -8,13 +8,13 @@ Maintainer: Alexander Tahk <tahk@alum.mit.edu>
 Depends: R (>= 3.0.0)
 Imports: stats, methods, Rcpp (>= 0.11.0), RcppParallel, nloptr (>=
         1.0.0)
-LinkingTo: Rcpp, RcppArmadillo (>= 0.6.000.0.0), RcppParallel
+LinkingTo: Rcpp, RcppArmadillo, RcppParallel
 Suggests: mvtnorm
 SystemRequirements: GNU make
 Description: Functions for fitting and working with multivariate overlapping noisy observation continuous-time autoregression (MONOCAR) models and other CARMA models.
 LazyLoad: true
 LazyData: true
-License: GPL-3
+License: GPL-3 | file LICENSE
 URL: http://monocar.tahk.us/
 NeedsCompilation: yes
 Packaged: 2018-03-28 19:40:00 UTC; tahk

@@ -11,7 +11,7 @@ monocar.cal(init.param, data, exodata, pc.list, verbose=1,
   epsilon = 0, lower.bounds = NULL, upper.bounds = NULL,
   var.centers = NULL, priors = NULL, newton.raphson = 0,
   time.indices = NULL, compute.hessian = TRUE,
-  compute.partial.scores = TRUE, compute.history = FALSE,
+  compute.partial.scores = TRUE, history.times = NULL,
   use.parallel = NULL)
 }
 \arguments{
@@ -59,8 +59,9 @@ monocar.cal(init.param, data, exodata, pc.list, verbose=1,
     derivative of the log-likelihood contribution of each observation
     with respect to the parameters. The default is to compute these
     quantities.}
-  \item{compute.history}{Whether to compute the estimated history of the
-    latent processes. The default is not to compute this history.}
+  \item{history.times}{An optional vector of times at which to compute the
+    estimated history of the latent processes. The default of \code{NULL}
+    means the history is not computed.}
   \item{use.parallel}{Whether to compute the gradient using parallel
     processing. This is faster than the non-parallel machines on
     multi-core machines and the same speed on single-core

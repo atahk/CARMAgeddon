@@ -43,7 +43,7 @@
     details.}
   \item{transform.var}{An optional function specifying a transformation
     to apply to the variance of each observation. See
-    \code{\link{monocar.data}} for more details.}
+    \code{\link{create.ctdata}} for more details.}
   \item{exo.data}{A vector, data frame, matrix, or formula of possible
     exogenous variables to be included in the data.}
   \item{exovars}{An optional formula giving the exogenous variables to

@@ -1,11 +1,43 @@
 ## ## for creating a package
 .package.Name <- "CARMAgeddon"
 
+utils::globalVariables(c(
+    "monocarptr__new", "monocarptr__print", "monocarptr__fun",
+    "monocarptr__grad", "monocarptr__parallelgrad", "monocarptr__partial",
+    "monocarptr__hess", "monocarptr__hist", "monocarptr__histrand",
+    "monocarptr__endopt", "ousim"
+))
+
 setClass( "monocarptr", representation( pointer = "externalptr" ) )
 
 setMethod( "initialize", "monocarptr",
-          function(.Object, ...) {
-              .Object@pointer <- .Call( monocarptr__new, ... , PACKAGE=.package.Name)
+          function(.Object,
+                   iParam, iOutput, iEpsilon,
+                   iStart, iMean, iExtraMean,
+                   iReversion, iSimultaneous, iSigma,
+                   iExtraVarAdd, iExtraVarMult, iExtraVarPow,
+                   iExo, iPriors,
+                   iTimeIndices, iProcessIndices,
+                   iSeriesIndices, iHouseIndices,
+                   iTimeStart, iTimeEnd,
+                   iExoData,
+                   iObservations, iVariances, iVarCenters,
+                   iHistTimes,
+                   iSizes, iScreenWidth, iGrainSize) {
+              .Object@pointer <- .Call( monocarptr__new,
+                   iParam, iOutput, iEpsilon,
+                   iStart, iMean, iExtraMean,
+                   iReversion, iSimultaneous, iSigma,
+                   iExtraVarAdd, iExtraVarMult, iExtraVarPow,
+                   iExo, iPriors,
+                   iTimeIndices, iProcessIndices,
+                   iSeriesIndices, iHouseIndices,
+                   iTimeStart, iTimeEnd,
+                   iExoData,
+                   iObservations, iVariances, iVarCenters,
+                   iHistTimes,
+                   iSizes, iScreenWidth, iGrainSize,
+                   PACKAGE=.package.Name)
               .Object
           } )
 
