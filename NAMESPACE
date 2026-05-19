@@ -1,4 +1,4 @@
-useDynLib("CARMAgeddon")
+useDynLib(CARMAgeddon, .registration = TRUE)
 
 export("monocar.cal", "monocar.hist", "monocar.estimate", "create.ctdata", "join.ctdata", "simulate.monocar")
 

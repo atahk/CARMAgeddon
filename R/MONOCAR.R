@@ -5,36 +5,36 @@ setClass( "monocarptr", representation( pointer = "externalptr" ) )
 
 setMethod( "initialize", "monocarptr",
           function(.Object, ...) {
-              .Object@pointer <- .Call( "monocarptr__new", ... , PACKAGE=.package.Name)
+              .Object@pointer <- .Call( monocarptr__new, ... , PACKAGE=.package.Name)
               .Object
           } )
 
 monocarptr.print <- function(param, dataptr) {
-    .Call( "monocarptr__print" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__print , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.loglik <- function(param, dataptr) {
-    .Call( "monocarptr__fun" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__fun , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.grad <- function(param, dataptr) {
-    .Call( "monocarptr__grad" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__grad , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.parallelgrad <- function(param, dataptr) {
-    .Call( "monocarptr__parallelgrad" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__parallelgrad , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.partial <- function(param, dataptr) {
-    .Call( "monocarptr__partial" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__partial , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.hess <- function(param, dataptr) {
-    .Call( "monocarptr__hess" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__hess , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.hist <- function(param, dataptr) {
-    .Call( "monocarptr__hist" , dataptr@pointer , param, PACKAGE=.package.Name)
+    .Call( monocarptr__hist , dataptr@pointer , param, PACKAGE=.package.Name)
 }
 monocarptr.histrand <- function(param, num.iter, dataptr) {
-    .Call( "monocarptr__histrand" , dataptr@pointer , param, as.integer(num.iter), PACKAGE=.package.Name)
+    .Call( monocarptr__histrand , dataptr@pointer , param, as.integer(num.iter), PACKAGE=.package.Name)
 }
 monocarptr.endopt <- function(success) {
-    .Call( "monocarptr__endopt" , success, PACKAGE=.package.Name)
+    .Call( monocarptr__endopt , success, PACKAGE=.package.Name)
 }
 
 monocar.cal <- function(init.param, data, exodata, pc.list,
@@ -745,7 +745,7 @@ simdata.monocar.latent <- function(init,
     else if (length(screen.width) > 1)
         screen.width <- screen.width[1]
     
-    output <- .Call("ousim", as.double(init.param),
+    output <- .Call(ousim, as.double(init.param),
                     start.const, as.matrix(mu.const), as.matrix(extra.mu.const),
                     as.matrix(theta.const), as.matrix(alpha.const), as.matrix(sigma.const),
                     as.matrix(extra.var.add.const),
