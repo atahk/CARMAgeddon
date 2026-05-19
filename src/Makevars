@@ -1,0 +1,4 @@
+PKG_LIBS = $(LAPACK_LIBS) $(BLAS_LIBS)
+PKG_LIBS += $(shell ${R_HOME}/bin/Rscript -e "RcppParallel::RcppParallelLibs()")
+
+OBJECTS = wrapper.o

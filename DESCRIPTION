@@ -1,0 +1,21 @@
+Package: CARMAgeddon
+Version: 0.3.7
+Type: Package
+Date: 2018-01-08
+Title: MONOCAR and other CARMA models
+Authors@R: c(person("Alexander", "Tahk", role = c("aut", "cre"), email = "tahk@alum.mit.edu"))
+Maintainer: Alexander Tahk <tahk@alum.mit.edu>
+Depends: R (>= 3.0.0)
+Imports: stats, methods, Rcpp (>= 0.11.0), RcppParallel, nloptr (>=
+        1.0.0)
+LinkingTo: Rcpp, RcppArmadillo (>= 0.6.000.0.0), RcppParallel
+Suggests: mvtnorm
+SystemRequirements: GNU make
+Description: Functions for fitting and working with multivariate overlapping noisy observation continuous-time autoregression (MONOCAR) models and other CARMA models.
+LazyLoad: true
+LazyData: true
+License: GPL-3
+URL: http://monocar.tahk.us/
+NeedsCompilation: yes
+Packaged: 2018-03-28 19:40:00 UTC; tahk
+Author: Alexander Tahk [aut, cre]
